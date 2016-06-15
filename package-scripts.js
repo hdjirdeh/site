@@ -2,6 +2,7 @@
 const commonWatch = '--watch ' + [
   'src', 'sponsors', 'episodes', 'shared', 'generate',
 ].join(' --watch ')
+const otherComponentsWatch = `${commonWatch} --watch other/components`
 module.exports = {
   scripts: {
     build: {
@@ -70,6 +71,13 @@ module.exports = {
         description: 'Pass an episode directory to build just that episode with a watch',
         script: `nodemon ${commonWatch} --exec npm run start build.singleEpisode -s`,
       },
+    },
+    email: {
+      default: {
+        description: 'generates the email HTML for sending to people',
+        script: 'babel-node other/generate-episode-email',
+      },
+      watch: `nodemon ${otherComponentsWatch} --watch other/generate-episode-email.js --exec npm run start email -s`,
     },
     description: 'babel-node other/generate-episode-description',
     eslint: 'eslint .',
